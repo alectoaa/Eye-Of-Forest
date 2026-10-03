@@ -71,21 +71,6 @@ The current version uses fixed date ranges: spring, summer, and autumn 2024; win
 - [Folium](https://python-visualization.github.io/folium/) interactive map
 - NDVI, EVI, NDRE, NDWI, and SAVI vegetation indices
 
-## 📁 Project files
-
-```text
-.
-├── app.py                    # Application and analysis workflow
-├── LICENSE                   # Custom restricted-use license
-├── requirements.txt          # Python dependencies
-├── build_agac_analizi.spec   # Optional PyInstaller configuration
-├── .gitignore                # Excludes local files and secrets
-└── README.md
-```
-
-## 🔐 Credentials
-
-Authenticate with your own Google account using `earthengine authenticate`. Do not upload or share a `service-account-key.json` file; it contains private credentials and is not required by this app. The file is excluded by `.gitignore`. If a key has already been exposed publicly, revoke it in Google Cloud Console and create a replacement.
 
 ## 🛠️ Troubleshooting
 
