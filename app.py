@@ -4,9 +4,9 @@ import ee
 import folium
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QVBoxLayout, QHBoxLayout,
                              QWidget, QPushButton, QLabel, QProgressBar, QTextEdit,
-                             QSpinBox, QDoubleSpinBox, QGroupBox, QMessageBox, QComboBox)
+                             QSpinBox, QLineEdit, QGroupBox, QMessageBox, QComboBox)
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5.QtCore import QThread, pyqtSignal, QUrl
+from PyQt5.QtCore import QThread, pyqtSignal, QUrl, QSettings
 from PyQt5.QtGui import QFont
 
 HASAT_TAKVIMI = {
@@ -21,8 +21,9 @@ class EarthEngineWorker(QThread):
     finished = pyqtSignal(str, int, int, int, int, int)
     error = pyqtSignal(str)
 
-    def __init__(self, lat, lon, buffer_km, start_date, end_date, scale, season):
+    def __init__(self, project_id, lat, lon, buffer_km, start_date, end_date, scale, season):
         super().__init__()
+        self.project_id = project_id
         self.lat = lat
         self.lon = lon
         self.buffer_km = buffer_km
@@ -37,7 +38,7 @@ class EarthEngineWorker(QThread):
 
             connected = False
             try:
-                ee.Initialize(project='your-earth-engine-project-id')
+                ee.Initialize(project=self.project_id)
                 self.progress.emit("✓ Connected to Earth Engine!")
                 connected = True
             except:
@@ -47,22 +48,14 @@ class EarthEngineWorker(QThread):
                 try:
                     self.progress.emit("Authenticating...")
                     ee.Authenticate()
-                    ee.Initialize(project='your-earth-engine-project-id')
+                    ee.Initialize(project=self.project_id)
                     self.progress.emit("✓ Authentication complete!")
                     connected = True
                 except:
                     pass
 
             if not connected:
-                try:
-                    ee.Initialize()
-                    self.progress.emit("✓ Connected to Earth Engine!")
-                    connected = True
-                except:
-                    pass
-
-            if not connected:
-                self.error.emit("Could not connect to Google Earth Engine!\n\nTo fix this:\n1. Open a terminal or Command Prompt\n2. Run 'earthengine authenticate'\n3. Sign in with your Google account\n4. Restart the application")
+                self.error.emit("Could not connect to Google Earth Engine. Check that your project ID is correct, registered for Earth Engine, and has the Earth Engine API enabled. Then run 'earthengine authenticate' and sign in with an account that has access to the project.")
                 return
             
             self.progress.emit("Defining the analysis area...")
@@ -529,6 +522,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("🍊 Fruit Tree Analysis")
         self.setGeometry(50, 50, 1600, 900)
+        self.settings = QSettings("FruitTreeAnalysis", "FruitTreeAnalysis")
         
 
         self.setStyleSheet("""
@@ -691,34 +685,17 @@ class MainWindow(QMainWindow):
         location_layout.addWidget(location_help)
 
         coordinates_layout = QHBoxLayout()
-        self.latitude_spin = QDoubleSpinBox()
-        self.latitude_spin.setRange(-90.0, 90.0)
-        self.latitude_spin.setDecimals(6)
-        self.latitude_spin.setSingleStep(0.001)
-        self.latitude_spin.setValue(0.0)
-        self.latitude_spin.setPrefix("Lat ")
-        self.latitude_spin.setToolTip("Latitude: -90 to 90")
-        coordinates_layout.addWidget(self.latitude_spin)
+        self.latitude_input = QLineEdit()
+        self.latitude_input.setPlaceholderText("Latitude (−90 to 90)")
+        self.latitude_input.setToolTip("Enter a latitude between -90 and 90")
+        coordinates_layout.addWidget(self.latitude_input)
 
-        self.longitude_spin = QDoubleSpinBox()
-        self.longitude_spin.setRange(-180.0, 180.0)
-        self.longitude_spin.setDecimals(6)
-        self.longitude_spin.setSingleStep(0.001)
-        self.longitude_spin.setValue(0.0)
-        self.longitude_spin.setPrefix("Lon ")
-        self.longitude_spin.setToolTip("Longitude: -180 to 180")
-        coordinates_layout.addWidget(self.longitude_spin)
+        self.longitude_input = QLineEdit()
+        self.longitude_input.setPlaceholderText("Longitude (−180 to 180)")
+        self.longitude_input.setToolTip("Enter a longitude between -180 and 180")
+        coordinates_layout.addWidget(self.longitude_input)
 
         location_layout.addLayout(coordinates_layout)
-
-        default_location = QLabel("Default: the selected area")
-        default_location.setStyleSheet("""
-            color: #00d9ff; 
-            font-weight: bold; 
-            font-size: 11px;
-            padding: 4px;
-        """)
-        location_layout.addWidget(default_location)
 
         layout.addWidget(location_group)
         
@@ -726,6 +703,13 @@ class MainWindow(QMainWindow):
         analysis_group = QGroupBox("⚙️ Analysis Settings")
         analysis_layout = QVBoxLayout(analysis_group)
         analysis_layout.setSpacing(12)
+
+        analysis_layout.addWidget(QLabel("☁️ Earth Engine Cloud Project ID:"))
+        self.project_id_input = QLineEdit()
+        self.project_id_input.setPlaceholderText("your-earth-engine-project-id")
+        self.project_id_input.setText(self.settings.value("earth_engine_project_id", ""))
+        self.project_id_input.setToolTip("Enter a Google Cloud project registered for Earth Engine")
+        analysis_layout.addWidget(self.project_id_input)
         
 
         analysis_layout.addWidget(QLabel("📏 Analysis Radius:"))
@@ -1029,16 +1013,30 @@ Click the button to start an analysis.
         if self.worker and self.worker.isRunning():
             QMessageBox.warning(self, "Warning", "An analysis is already running!")
             return
-            
+
+        project_id = self.project_id_input.text().strip()
+        if not project_id:
+            QMessageBox.warning(self, "Earth Engine Project Required", "Enter your Earth Engine Cloud Project ID before starting the analysis.")
+            self.project_id_input.setFocus()
+            return
+
+        try:
+            lat = float(self.latitude_input.text().strip())
+            lon = float(self.longitude_input.text().strip())
+        except ValueError:
+            QMessageBox.warning(self, "Location Required", "Enter valid latitude and longitude coordinates before starting the analysis.")
+            return
+
+        if not -90 <= lat <= 90 or not -180 <= lon <= 180:
+            QMessageBox.warning(self, "Invalid Coordinates", "Latitude must be between -90 and 90, and longitude must be between -180 and 180.")
+            return
+
+        self.settings.setValue("earth_engine_project_id", project_id)
 
         self.analyze_btn.setEnabled(False)
         self.progress_bar.setVisible(True)
         self.progress_bar.setRange(0, 0)
         self.log_text.clear()
-        
-
-        lat = self.latitude_spin.value()
-        lon = self.longitude_spin.value()
         buffer_km = self.buffer_spin.value()
         
 
@@ -1069,7 +1067,7 @@ Click the button to start an analysis.
             scale = 15
         
 
-        self.worker = EarthEngineWorker(lat, lon, buffer_km, start_date, end_date, scale, season)
+        self.worker = EarthEngineWorker(project_id, lat, lon, buffer_km, start_date, end_date, scale, season)
         self.worker.progress.connect(self.update_progress)
         self.worker.finished.connect(self.analysis_finished)
         self.worker.error.connect(self.analysis_error)

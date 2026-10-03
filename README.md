@@ -1,6 +1,6 @@
 # 🌳 Fruit Tree Analysis
 
-**Explore vegetation around a location of your choice using satellite imagery.** This desktop app analyzes Sentinel-2 imagery through Google Earth Engine and displays estimated vegetation classes on an interactive map. Its default center is the selected analysis area; you can enter coordinates for another location.
+**Explore vegetation around a location of your choice using satellite imagery.** This desktop app analyzes Sentinel-2 imagery through Google Earth Engine and displays estimated vegetation classes on an interactive map. Choose the analysis center and provide your own Google Earth Engine Cloud Project ID.
 
 The app offers a hands-on introduction to remote sensing, satellite data, and vegetation indices.
 
@@ -20,7 +20,7 @@ The app retrieves Sentinel-2 imagery for a selected season and analysis area, ca
 
 Individual detections and groups are shown separately where available. The map also includes seasonal harvest highlighting and an on-screen count summary.
 
-> **Please note:** Satellite classifications are estimates, not a verified inventory or field survey. Results depend on image resolution, cloud cover, and classification thresholds. The thresholds were tuned for the the selected region area and may not generalize to other regions.
+> **Please note:** Satellite classifications are estimates, not a verified inventory or field survey. Results depend on image resolution, cloud cover, and classification thresholds; they may not generalize to every region.
 
 ## 🚀 Get started
 
@@ -29,7 +29,7 @@ Individual detections and groups are shown separately where available. The map a
 - Python 3.8 or newer
 - Internet access
 - A Google Earth Engine account
-- Access to an Earth Engine project (the app currently uses project ID `your-earth-engine-project-id`)
+- A Google Cloud project that you can use with Earth Engine
 
 ### 1. Install dependencies
 
@@ -47,7 +47,11 @@ earthengine authenticate
 
 Sign in with your Google account in the browser and approve access. Earth Engine credentials are stored locally in your user profile.
 
-### 3. Launch the app
+### 3. Set up your Earth Engine project
+
+Use a Google Cloud project that you own or have permission to use. Register it for Earth Engine and enable the Earth Engine API, following [Google's Earth Engine access guide](https://developers.google.com/earth-engine/guides/access). Copy the project ID shown in Google Cloud Console.
+
+### 4. Launch the app
 
 ```bash
 python app.py
@@ -55,12 +59,13 @@ python app.py
 
 ## 🗺️ Choose a location and run an analysis
 
-1. Enter the location's **latitude** and **longitude** in the Analysis Center fields. To find coordinates in Google Maps, right-click the location and copy the displayed coordinates. The first value is latitude and the second is longitude.
-2. Set the analysis radius from **1 to 5 km**. The default is **2 km**.
-3. Select a season. Summer is selected by default.
-4. Choose **Fast**, **Balanced**, or **Precise** detection detail. Balanced is the default.
-5. Click **Start Analysis**. Progress messages appear in the activity log.
-6. Review the selected center, vegetation classes, and estimated counts on the map and in the summary panel.
+1. Enter your Earth Engine **Cloud Project ID** in Analysis Settings. The app remembers this setting locally on your computer.
+2. Enter the location's **latitude** and **longitude** in the Analysis Center fields. To find coordinates in Google Maps, right-click the location and copy the displayed coordinates. The first value is latitude and the second is longitude.
+3. Set the analysis radius from **1 to 5 km**. The default is **2 km**.
+4. Select a season. Summer is selected by default.
+5. Choose **Fast**, **Balanced**, or **Precise** detection detail. Balanced is the default.
+6. Click **Start Analysis**. Progress messages appear in the activity log.
+7. Review the selected center, vegetation classes, and estimated counts on the map and in the summary panel.
 
 The current version uses fixed date ranges: spring, summer, and autumn 2024; winter covers December 2023 through February 2024. Update the date ranges in `app.py` to analyze another year.
 
@@ -71,10 +76,9 @@ The current version uses fixed date ranges: spring, summer, and autumn 2024; win
 - [Folium](https://python-visualization.github.io/folium/) interactive map
 - NDVI, EVI, NDRE, NDWI, and SAVI vegetation indices
 
-
 ## 🛠️ Troubleshooting
 
-- **Cannot connect to Earth Engine:** Run `earthengine authenticate` and check that you are signed into the correct account. If you do not have access to `your-earth-engine-project-id`, replace the project ID in `app.py` with one you can use.
+- **Cannot connect to Earth Engine:** Run `earthengine authenticate`, check that you are signed into the correct account, and confirm your project is registered for Earth Engine with the Earth Engine API enabled. Enter that project's ID in the app.
 - **`ModuleNotFoundError`:** Run `python -m pip install -r requirements.txt` from the project directory.
 - **The map does not appear:** Check your internet connection and confirm that `PyQtWebEngine` is installed.
 - **Few or no detections:** Try a different season or a larger analysis radius. Cloud cover can affect results.
