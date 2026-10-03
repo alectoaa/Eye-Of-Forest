@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+
+# PyInstaller and generated application files
+build/
+dist/
+*.spec.bak
+*.log
+fruit_tree_analysis.html
+fruit_tree_analysis.html
+temp_welcome.html
+
+# Local secrets and Earth Engine credentials
+*service-account*.json
+credentials
+earthengine/
+.config/earthengine/
+
+# IDE and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+

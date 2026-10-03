@@ -1,0 +1,58 @@
+RESTRICTED USE LICENSE
+
+Effective date: October 3, 2026
+Permission contact: alectoaa@proton.me
+
+IMPORTANT: This is a custom, restrictive license. It is not an open-source license and has no SPDX identifier. It applies only to material in the Project that the relevant copyright holder has the right to license. Third-party material remains subject to its own license and terms.
+
+1. Definitions
+
+"Project" means the source code, object code, application, documentation, and other materials in this repository that are owned or controlled by the relevant copyright holder (the "Rights Holder"). "You" means any individual or legal entity accessing or using the Project. "Written Permission" means an express, affirmative written authorization issued directly by the Rights Holder through alectoaa@proton.me that identifies the permitted use with reasonable specificity. A request, acknowledgement, automated reply, silence, or lack of objection is not permission.
+
+2. Ownership and reservation of rights
+
+All rights in the Project are reserved except for the limited permission expressly granted in Section 3 and any rights that cannot lawfully be restricted. No ownership, patent, trademark, trade secret, or other intellectual property right is transferred to You. The Project's name and marks may not be used to imply sponsorship or endorsement.
+
+3. Limited personal evaluation permission
+
+Subject to this License, the Rights Holder grants You a revocable, non-exclusive, non-transferable, non-sublicensable, royalty-free permission to view the Project and to make one private copy solely to inspect and evaluate how it works for Your own personal, non-commercial learning. You may run that private copy only for that purpose. You must keep this License and all existing notices with any permitted private copy. This permission does not authorize publication, distribution, modification, incorporation into another work, or submission or use as part of a project, activity, or deliverable described in Section 4.
+
+4. Uses requiring advance Written Permission
+
+You must obtain Written Permission before using, reproducing, running, modifying, adapting, translating, incorporating, displaying, demonstrating, submitting, distributing, publishing, or otherwise exploiting any part of the Project or any output derived from it in or for:
+
+a. any competition, contest, science fair, award program, challenge, hackathon, or similar judged or competitive activity, whether entered individually or as part of a team;
+
+b. any official, organized, institutional, sponsored, supervised, commissioned, funded, grant-supported, or formally submitted project or activity, including one associated with a school, university, public authority, company, nonprofit, research body, or other organization; or
+
+c. any commercial or profit-seeking purpose, including paid work, sale, licensing, monetization, advertising, sponsorship, fundraising for commercial benefit, a paid service, or inclusion in a product or service offered for economic advantage.
+
+Written Permission is also required before You distribute, publish, mirror, sublicense, sell, rent, host, provide as a service, or make a modified or derivative version of the Project available to another person, except for copies made by GitHub's own platform functionality as described in Section 7.
+
+These restrictions apply whether or not You receive money, whether the activity is conducted by an individual or an organization, and whether the Project is used in whole or in part. Calling an activity a study, demonstration, prototype, volunteer activity, or personal project does not avoid these requirements when the activity falls within this Section.
+
+5. Requesting permission
+
+Send permission requests directly to alectoaa@proton.me before the proposed use begins. Include the Project version or commit, the specific material and actions requested, the purpose and context, the people or organizations involved, the intended audience and distribution, whether funding, sponsorship, revenue, or other benefit is involved, and the requested duration and territory. Permission exists only when the Rights Holder sends an affirmative written grant that identifies the approved scope and any conditions. Permission for one use does not authorize any other use. Any change or expansion of an approved use requires further Written Permission.
+
+6. Conditions, termination, and enforcement
+
+You must not remove or alter copyright or license notices, misrepresent authorship or endorsement, or use the Project in a manner that violates applicable law or third-party rights. The limited permission in Section 3 terminates automatically if You materially breach this License. Upon termination, You must stop the unauthorized use and delete copies in Your possession or control, except where retention is required by law. Termination does not limit any rights or remedies available under applicable law. A failure to enforce a provision on one occasion is not a waiver of that provision.
+
+7. GitHub platform terms
+
+This License does not override the terms of the hosting platform. If this repository is public on GitHub, GitHub's Terms of Service permit other users to view and fork it on GitHub, and grant GitHub rights needed to operate the service. Those platform permissions are separate from permission to use the Project outside GitHub or for a purpose restricted by Section 4. You are responsible for choosing repository visibility consistent with Your intentions. This License cannot remove copies or rights already permitted by GitHub's Terms of Service or prevent independent copies made by others.
+
+8. Third-party components
+
+The Project may rely on or refer to third-party software, data, services, or trademarks. This License grants no rights in those materials. Their respective owners' licenses, terms, and usage policies govern them. You are responsible for reviewing and complying with those terms.
+
+9. Disclaimer and limitation
+
+To the maximum extent permitted by applicable law, the Project is provided "AS IS" and "AS AVAILABLE", without warranties or conditions of any kind, express or implied, including accuracy, fitness for a particular purpose, non-infringement, or uninterrupted operation. To the maximum extent permitted by law, the Rights Holder will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for loss of data, profits, revenue, or opportunity arising from the Project or this License. Nothing in this License excludes liability or a right that applicable law does not permit to be excluded or limited.
+
+10. General
+
+If a provision of this License is held unenforceable, it will be limited only to the minimum extent necessary, and the remaining provisions will continue to apply. This License states the complete terms governing the permissions it grants for the Project and may be changed only by a written instrument issued by the Rights Holder. Mandatory rights under applicable law remain unaffected.
+
+For permission requests and licensing questions: alectoaa@proton.me
