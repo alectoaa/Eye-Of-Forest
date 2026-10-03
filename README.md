@@ -6,7 +6,7 @@ The app offers a hands-on introduction to remote sensing, satellite data, and ve
 
 ## 🛰️ What does the app do?
 
-The app retrieves Sentinel-2 imagery for a selected season and analysis area, calculates vegetation indices such as NDVI, EVI, and SAVI, then displays classified detections and summary counts. You can adjust the analysis center, radius, season, and detection detail.
+The app retrieves Sentinel-2 imagery for a selected season and analysis area, calculates NDVI, EVI, NDRE, and NDWI vegetation indices, then displays estimated classes and summary counts. You can adjust the analysis center, radius, season, and detection detail.
 
 | Map marker | Estimated class |
 | --- | --- |
@@ -74,7 +74,7 @@ The current version uses fixed date ranges: spring, summer, and autumn 2024; win
 - [Google Earth Engine](https://earthengine.google.com/) and Sentinel-2
 - [PyQt5](https://riverbankcomputing.com/software/pyqt/intro) desktop interface
 - [Folium](https://python-visualization.github.io/folium/) interactive map
-- NDVI, EVI, NDRE, NDWI, and SAVI vegetation indices
+- NDVI, EVI, NDRE, and NDWI vegetation indices
 
 ## 🛠️ Troubleshooting
 

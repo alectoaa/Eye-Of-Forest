@@ -12,8 +12,7 @@ build/
 dist/
 *.spec.bak
 *.log
-fruit_tree_analysis.html
-temp_welcome.html
+*.html
 
 # Local secrets and Earth Engine credentials
 *service-account*.json
